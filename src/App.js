@@ -13,7 +13,7 @@ class App extends Component {
     // this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    fetch("http://jsonplaceholder.typicode.com/users")
+    fetch("https://jsonplaceholder.typicode.com/users")
       .then(response => response.json())
       .then(users => this.setState({ monsters: users }));
   }
