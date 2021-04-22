@@ -12,10 +12,24 @@ class App extends Component {
     };
   }
 
+  // componentDidMount() {
+  //   fetch("https://jsonplaceholder.typicode.com/users")
+  //     .then(response => response.json())
+  //     .then(users => this.setState({ monsters: users }));
+  // }
   componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then(response => response.json())
-      .then(users => this.setState({ monsters: users }));
+    fetch("https://jsonplaceholder.typicode.com/users").then(response => {
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        return response
+          .json()
+          .then(users => this.setState({ monsters: users }));
+      } else {
+        return response.text().then(text => {
+          console.log(text);
+        });
+      }
+    });
   }
 
   handleChange = e => {
